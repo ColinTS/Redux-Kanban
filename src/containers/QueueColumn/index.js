@@ -7,6 +7,7 @@ class QueueColumn extends Component {
   }
 
   render(){
+    console.log('QUEUE COLUMN', this.props);
     return (
         <div>
           <div className="queue">

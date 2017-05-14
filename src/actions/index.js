@@ -12,10 +12,19 @@ export const addCard = card => {
 };
 
 export const moveForward = card => {
+  console.log(card);
+   const cardResult = {
+      title: card.title,
+      priority: card.priority,
+      created_by: card.created_by,
+      assigned_to: card.assigned_to,
+      id: card.id,
+      status: 'In Progress'
+    };
 
   return {
     type: MOVE_FORWARD,
-    card
+    data: cardResult
   };
 
 };

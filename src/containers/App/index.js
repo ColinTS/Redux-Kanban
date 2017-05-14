@@ -7,7 +7,7 @@ import QueueColumn from '../QueueColumn';
 import ProgressColumn from '../ProgressColumn';
 import DoneColumn from '../DoneColumn';
 // import { addBookToFakeXHR, getBooksFromFakeXHR } from '../../lib/books.db';
-// import { addCard, move } from '../../actions';
+import { addCard, moveForward } from '../../actions';
 
 import './styles.css';
 
@@ -25,28 +25,31 @@ class App extends Component{
     });
   }
 
-  moveForward = (id) => {
-    let index, card;
-    let todoArray = this.state.todo
+  // moveForward = (card) => {
+    // let index, card;
+    // let todoArray = this.state.todo
 
-    this.state.todo.forEach((currentCard, cardIndex) => {
-      if(currentCard.id === id){
-        index = cardIndex;
-        card = currentCard;
-        card.status = "In Progress"
-      }
-    })
+    // this.state.todo.forEach((currentCard, cardIndex) => {
+    //   if(currentCard.id === id){
+    //     index = cardIndex;
+    //     card = currentCard;
+    //     card.status = "In Progress"
+    //   }
+    // })
 
-    let removeTodo = this.state.todo.slice(0, index)
-                     .concat(this.state.todo.slice(index+ 1, todoArray.length));
-    let addProgress = this.state.progress.concat([card]);
+    // return {
+    //   title: card.title,
+    //   priority: card.priority,
+    //   created_by: card.created_by,
+    //   assigned_to: card.assigned_to,
+    //   id: card.id,
+    //   status: 'In Progress'
+    // }
 
-    this.setState({
-      todo : removeTodo,
-      progress : addProgress,
-    })
 
-  }
+
+
+  // }
 
   moveForwardDone = (id) => {
     let index, card;
@@ -143,12 +146,13 @@ class App extends Component{
   }
 
   render(){
+    console.log('props', this);
 
     return (
       <div>
         <h1>Kanban Board</h1>
         <NewCardForm addCard={this.addCard}/>
-        <QueueColumn todo={this.props.todo} backward={()=> {}} />
+        <QueueColumn todo={this.props.todo} moveForward={this.props.moveForward} backward={()=> {}} />
         <ProgressColumn progress={this.props.progress} moveBackwardQueue={this.moveBackwardQueue} moveForwardDone={this.moveForwardDone} />
         <DoneColumn done={this.props.done} forward={()=> {}} moveBackwardProgress={this.moveBackwardProgress} />
       </div>
@@ -168,17 +172,21 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    // addCard: card => {
-    //   dispatch(addCard(card))
-    // },
-    // moveForward: card => {
-    //   dispatch(moveForward(card))
-    // }
+    addCard: card => {
+      dispatch(addCard(card))
+    },
+    moveForward: card => {
+      console.log('card', card);
+      console.log('hello');
+
+      dispatch(moveForward(card))
+    }
   }
 }
 
 const ConnectedApp = connect(
   mapStateToProps,
+  mapDispatchToProps
 )(App);
 
 export default ConnectedApp;

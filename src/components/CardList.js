@@ -9,4 +9,7 @@ const CardList = ({ cards, forward, backward }) => (
   </ul>
 );
 
+CardList.defaultProps = {
+  cards : []
+}
 export default CardList;

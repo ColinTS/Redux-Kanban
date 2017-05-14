@@ -1,5 +1,5 @@
 import React from 'react';
-import { moveForward } from '../actions';
+
 
 
 const Card = (props) => (
@@ -10,17 +10,13 @@ const Card = (props) => (
     <p>{ props.card.created_by }</p>
     <p>{ props.card.assigned_to }</p>
     <p>{ props.card.id }</p>
-    <button id="backward" onClick = { props.backward.bind(this, props.card.id) }>backward</button>
-    <button id="forward" onClick = { props.forward.bind(this, props.card.id) }>forward</button>
+    <button id="backward" onClick = { props.backward.bind(this, props.card) }>backward</button>
+    <button id="forward" onClick = { props.forward.bind(this, props.card) }>forward</button>
   </div>
 );
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    moveForward: card => {
-      dispatch(moveForward(card))
-    }
-  }
+Card.defaultProps = {
+  forward: () => {},
 }
 
 export default Card;

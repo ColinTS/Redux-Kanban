@@ -9,7 +9,10 @@ const initialState = {
     {
       title: 'Read Dune',
       priority: 'High',
-      status: 'Queue'
+      status: 'Queue',
+      id: "1",
+      assigned_to: 'Colin',
+      created_by: 'Colin'
     },
     {
       title: 'Walk Neo',
@@ -25,8 +28,8 @@ const initialState = {
 
 };
 const cards = (state = initialState, action) => {
-  console.log("state", state);
-  console.log("action", action);
+  // console.log("state", state);
+  // console.log("action", action);
 
   switch(action.type){
 
@@ -36,26 +39,11 @@ const cards = (state = initialState, action) => {
       });
 
     case MOVE_FORWARD:
+    console.log('action', action.data);
+      return Object.assign({}, state, {
+        cards: action.status
+      });
 
-    return state;
-      // let index, card;
-      // let todoArray = this.state.todo;
-
-      // this.state.todo.forEach((currentCard, cardIndex) => {
-      //   if(currentCard.id === id){
-      //     index = cardIndex;
-      //     card = currentCard;
-      //     card.status = "In Progress";
-      //   }
-      // });
-
-      // let removeTodo = this.state.todo.slice(0, index)
-      //                  .concat(this.state.todo.slice(index+ 1, todoArray.length));
-      // let addProgress = this.state.progress.concat([card]);
-
-      // return Object.assign({}, state, {
-      //   cards :
-      // });
 
 
     default:
