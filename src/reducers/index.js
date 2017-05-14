@@ -17,12 +17,18 @@ const initialState = {
     {
       title: 'Walk Neo',
       priority: 'Low',
-      status: 'In Progress'
+      status: 'In Progress',
+      id: "2",
+      assigned_to: 'Colin',
+      created_by: 'Colin'
     },
     {
       title: 'Walk Morpheus',
       priority: 'Low',
-      status: 'Done'
+      status: 'Done',
+      id: "3",
+      assigned_to: 'Colin',
+      created_by: 'Colin'
     }
   ]
 
@@ -40,8 +46,16 @@ const cards = (state = initialState, action) => {
 
     case MOVE_FORWARD:
     console.log('action', action.data);
+    console.log('props',state.cards);
+      for (let key in state.cards){
+        if(state.cards[key].id === action.data.id){
+          state.cards[key].status = action.data.status;
+          console.log('Progress?',state.cards[key]);
+        }
+      }
       return Object.assign({}, state, {
-        cards: action.status
+
+        // cards: action.status
       });
 
 
