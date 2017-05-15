@@ -3,7 +3,7 @@ export const ADD_CARD = 'ADD_CARD';
 export const MOVE_FORWARD = 'MOVE_FORWARD';
 
 export const addCard = card => {
-
+console.log('card',card);
   return {
     type: ADD_CARD,
     card
@@ -12,7 +12,7 @@ export const addCard = card => {
 };
 
 export const moveForward = card => {
-  console.log(card);
+  // console.log('card',card);
    const cardResult = {
       title: card.title,
       priority: card.priority,

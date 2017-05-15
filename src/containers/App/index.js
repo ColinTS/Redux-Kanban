@@ -18,12 +18,12 @@ class App extends Component{
 
   }
 
-  addCard = (card) => {
-    console.log(card);
-    this.setState({
-      todo : this.state.todo.concat(card)
-    });
-  }
+  // addCard = (card) => {
+  //   console.log(card);
+  //   this.setState({
+  //     todo : this.state.todo.concat(card)
+  //   });
+  // }
 
   // moveForward = (card) => {
     // let index, card;
@@ -45,9 +45,6 @@ class App extends Component{
     //   id: card.id,
     //   status: 'In Progress'
     // }
-
-
-
 
   // }
 
@@ -176,8 +173,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(addCard(card))
     },
     moveForward: card => {
-      console.log('card', card);
-      console.log('hello');
+      // console.log('card', card);
+      // console.log('hello');
 
       dispatch(moveForward(card))
     }

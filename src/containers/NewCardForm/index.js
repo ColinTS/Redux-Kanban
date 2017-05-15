@@ -1,5 +1,8 @@
 /*jshint esversion: 6*/
 import React, { Component } from 'react';
+import { addCard } from '../../actions';
+import { connect } from 'react-redux';
+
 
 class NewCardForm extends Component{
   constructor(props){
@@ -19,12 +22,20 @@ class NewCardForm extends Component{
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.addCard(this.state);
+    this.props.addCard(this.state);
+    this.setState({
+      title: "",
+      priority: "",
+      status: "Queue",
+      created_by: "",
+      assigned_to: "",
+      id: ""
+    })
   }
 
   handleTitleChange = (event) => {
     this.setState({ title : event.target.value });
-  }
+  };
 
   handlePriorityChange = (event) => {
     this.setState({ priority : event.target.value });
@@ -73,4 +84,21 @@ class NewCardForm extends Component{
 
 }
 
-export default NewCardForm;
+const mapStateToProps = (state) => {
+  return state;
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    addCard: card => {
+      dispatch(addCard(card))
+    }
+  }
+}
+
+const ConnectedNewCardForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewCardForm);
+
+export default ConnectedNewCardForm;

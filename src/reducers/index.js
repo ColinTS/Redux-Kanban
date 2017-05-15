@@ -41,22 +41,17 @@ const cards = (state = initialState, action) => {
 
     case ADD_CARD:
       return Object.assign({}, state, {
-        cards : cards.concat(action.card)
+        cards : state.cards.concat(action.card)
       });
 
     case MOVE_FORWARD:
-    console.log('action', action.data);
-    console.log('props',state.cards);
       for (let key in state.cards){
         if(state.cards[key].id === action.data.id){
           state.cards[key].status = action.data.status;
-          console.log('Progress?',state.cards[key]);
+
         }
       }
-      return Object.assign({}, state, {
-
-        // cards: action.status
-      });
+      return Object.assign({}, state);
 
 
 
