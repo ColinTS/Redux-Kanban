@@ -7,7 +7,7 @@ import QueueColumn from '../QueueColumn';
 import ProgressColumn from '../ProgressColumn';
 import DoneColumn from '../DoneColumn';
 // import { addBookToFakeXHR, getBooksFromFakeXHR } from '../../lib/books.db';
-import { addCard, moveForward } from '../../actions';
+import { addCard, moveForward, moveForwardDone, moveBackwardQueue, moveBackwardProgress } from '../../actions';
 
 import './styles.css';
 
@@ -150,8 +150,8 @@ class App extends Component{
         <h1>Kanban Board</h1>
         <NewCardForm addCard={this.addCard}/>
         <QueueColumn todo={this.props.todo} moveForward={this.props.moveForward} backward={()=> {}} />
-        <ProgressColumn progress={this.props.progress} moveBackwardQueue={this.moveBackwardQueue} moveForwardDone={this.moveForwardDone} />
-        <DoneColumn done={this.props.done} forward={()=> {}} moveBackwardProgress={this.moveBackwardProgress} />
+        <ProgressColumn progress={this.props.progress} moveBackwardQueue={this.props.moveBackwardQueue} moveForwardDone={this.props.moveForwardDone} />
+        <DoneColumn done={this.props.done} forward={()=> {}} moveBackwardProgress={this.props.moveBackwardProgress} />
       </div>
     );
   }
@@ -173,10 +173,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(addCard(card))
     },
     moveForward: card => {
-      // console.log('card', card);
-      // console.log('hello');
-
       dispatch(moveForward(card))
+    },
+    moveForwardDone: card => {
+      dispatch(moveForwardDone(card))
+    },
+    moveBackwardProgress: card => {
+      dispatch(moveBackwardProgress(card))
+    },
+    moveBackwardQueue: card => {
+      dispatch(moveBackwardQueue(card))
     }
   }
 }
