@@ -8,7 +8,7 @@ class DoneColumn extends Component {
 
   render(){
     return (
-        <div>
+        <div className="column">
           <div className="done">
             <p>Done</p>
             <CardList cards={this.props.done} forward={this.props.forward} backward={this.props.moveBackwardProgress}></CardList>

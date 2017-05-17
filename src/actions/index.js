@@ -1,9 +1,26 @@
 /*jshint esversion: 6*/
+import * as db from '../lib/fetchFromDB';
+export const LOAD_CARDS = 'LOAD_CARDS';
 export const ADD_CARD = 'ADD_CARD';
 export const MOVE_FORWARD = 'MOVE_FORWARD';
 export const MOVE_FORWARD_DONE = 'MOVE_FORWARD_DONE';
 export const MOVE_BACKWARD_PROGRESS = 'MOVE_BACKWARD_PROGRESS';
 export const MOVE_BACKWARD_QUEUE = 'MOVE_BACKWARD_QUEUE';
+
+export const loadCards = () => {
+  return dispatch => {
+    return db.getAllCards()
+      .then(cards => {
+        console.log('cards',cards);
+        dispatch({
+          type: LOAD_CARDS,
+          cards
+        });
+      })
+      .catch(console.log);
+  };
+
+};
 
 export const addCard = card => {
 console.log('card',card);

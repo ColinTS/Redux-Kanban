@@ -9,7 +9,7 @@ class QueueColumn extends Component {
   render(){
     console.log('QUEUE COLUMN', this.props);
     return (
-        <div>
+        <div className="column">
           <div className="queue">
             <p>To Do</p>
             <CardList cards={this.props.todo} forward={this.props.moveForward} backward={this.props.backward} ></CardList>

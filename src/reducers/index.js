@@ -4,43 +4,22 @@ import {
   MOVE_FORWARD,
   MOVE_FORWARD_DONE,
   MOVE_BACKWARD_PROGRESS,
-  MOVE_BACKWARD_QUEUE
+  MOVE_BACKWARD_QUEUE,
+  LOAD_CARDS
 } from '../actions';
 
 const initialState = {
-  cards : [
-    {
-      title: 'Read Dune',
-      priority: 'High',
-      status: 'Queue',
-      id: "1",
-      assigned_to: 'Colin',
-      created_by: 'Colin'
-    },
-    {
-      title: 'Walk Neo',
-      priority: 'Low',
-      status: 'In Progress',
-      id: "2",
-      assigned_to: 'Colin',
-      created_by: 'Colin'
-    },
-    {
-      title: 'Walk Morpheus',
-      priority: 'Low',
-      status: 'Done',
-      id: "3",
-      assigned_to: 'Colin',
-      created_by: 'Colin'
-    }
-  ]
-
+  cards : []
 };
+
 const cards = (state = initialState, action) => {
-  // console.log("state", state);
-  // console.log("action", action);
 
   switch(action.type){
+
+    case LOAD_CARDS:
+      return Object.assign({}, state, {
+        cards : action.cards
+      });
 
     case ADD_CARD:
       return Object.assign({}, state, {

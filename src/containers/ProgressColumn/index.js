@@ -8,7 +8,7 @@ class ProgressColumn extends Component {
 
   render(){
     return (
-        <div>
+        <div className="column">
           <div className="progress">
             <p>In Progress</p>
             <CardList cards={this.props.progress} forward={this.props.moveForwardDone} backward={this.props.moveBackwardQueue}></CardList>

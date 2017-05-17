@@ -6,8 +6,7 @@ import NewCardForm from '../NewCardForm';
 import QueueColumn from '../QueueColumn';
 import ProgressColumn from '../ProgressColumn';
 import DoneColumn from '../DoneColumn';
-// import { addBookToFakeXHR, getBooksFromFakeXHR } from '../../lib/books.db';
-import { addCard, moveForward, moveForwardDone, moveBackwardQueue, moveBackwardProgress } from '../../actions';
+import { loadCards, addCard, moveForward, moveForwardDone, moveBackwardQueue, moveBackwardProgress } from '../../actions';
 
 import './styles.css';
 
@@ -18,140 +17,31 @@ class App extends Component{
 
   }
 
-  // addCard = (card) => {
-  //   console.log(card);
-  //   this.setState({
-  //     todo : this.state.todo.concat(card)
-  //   });
-  // }
-
-  // moveForward = (card) => {
-    // let index, card;
-    // let todoArray = this.state.todo
-
-    // this.state.todo.forEach((currentCard, cardIndex) => {
-    //   if(currentCard.id === id){
-    //     index = cardIndex;
-    //     card = currentCard;
-    //     card.status = "In Progress"
-    //   }
-    // })
-
-    // return {
-    //   title: card.title,
-    //   priority: card.priority,
-    //   created_by: card.created_by,
-    //   assigned_to: card.assigned_to,
-    //   id: card.id,
-    //   status: 'In Progress'
-    // }
-
-  // }
-
-  moveForwardDone = (id) => {
-    let index, card;
-    let progressArray = this.state.progress
-
-    this.state.progress.forEach((currentCard, cardIndex) => {
-      if(currentCard.id === id){
-        index = cardIndex;
-        card = currentCard;
-        card.status = "Done"
-      }
-    })
-
-    let removeProgress = this.state.progress.slice(0, index)
-                     .concat(this.state.progress.slice(index+ 1, progressArray.length));
-    let addDone = this.state.done.concat([card]);
-
-    this.setState({
-      progress : removeProgress,
-      done : addDone,
-    })
-
-  }
-
-  moveBackwardProgress = (id) => {
-    let index, card;
-    let doneArray = this.state.done
-
-    this.state.done.forEach((currentCard, cardIndex) => {
-      if(currentCard.id === id){
-        index = cardIndex;
-        card = currentCard;
-        card.status = "In Progress"
-      }
-    })
-
-    let removeDone = this.state.done.slice(0, index)
-                     .concat(this.state.done.slice(index+ 1, doneArray.length));
-    let addProgress = this.state.progress.concat([card]);
-
-    this.setState({
-      progress : addProgress,
-      done : removeDone,
-    })
-
-  }
-
-  moveBackwardQueue = (id) => {
-    let index, card;
-    let progressArray = this.state.progress
-
-    this.state.progress.forEach((currentCard, cardIndex) => {
-      if(currentCard.id === id){
-        index = cardIndex;
-        card = currentCard;
-        card.status = "Queue"
-      }
-    })
-
-    let removeProgress = this.state.progress.slice(0, index)
-                     .concat(this.state.progress.slice(index+ 1, progressArray.length));
-    let addTodo = this.state.todo.concat([card]);
-
-    this.setState({
-      todo : addTodo,
-      progress : removeProgress,
-    })
-
-  }
-
   componentWillMount() {
     const todo = [];
     const progress = [];
     const done = [];
-    let allCards = this.props.cards;
+    this.getCards();
+    // let allCards = this.props.cards;
 
-    //  for(var i = 0; i<allCards.length; i++){
-    //   if (allCards[i].status === "Queue"){
-    //     todo.push(allCards[i]);
-    //   }
-    //   if (allCards[i].status === "In Progress"){
-    //     progress.push(allCards[i]);
-    //   }
-    //   if (allCards[i].status === "Complete"){
-    //     done.push(allCards[i]);
-    //   }
-    //  }
-
-    //  this.setState({
-    //   todo: todo,
-    //   progress: progress,
-    //   done: done
-    // })
   }
+
+   getCards = () => {
+    this.props.loadCards();
+   }
 
   render(){
     console.log('props', this);
 
     return (
-      <div>
+      <div className ="App">
         <h1>Kanban Board</h1>
         <NewCardForm addCard={this.addCard}/>
-        <QueueColumn todo={this.props.todo} moveForward={this.props.moveForward} backward={()=> {}} />
-        <ProgressColumn progress={this.props.progress} moveBackwardQueue={this.props.moveBackwardQueue} moveForwardDone={this.props.moveForwardDone} />
-        <DoneColumn done={this.props.done} forward={()=> {}} moveBackwardProgress={this.props.moveBackwardProgress} />
+        <div id="columns">
+          <QueueColumn todo={this.props.todo} moveForward={this.props.moveForward} backward={()=> {}} />
+          <ProgressColumn progress={this.props.progress} moveBackwardQueue={this.props.moveBackwardQueue} moveForwardDone={this.props.moveForwardDone} />
+          <DoneColumn done={this.props.done} forward={()=> {}} moveBackwardProgress={this.props.moveBackwardProgress} />
+        </div>
       </div>
     );
   }
@@ -169,6 +59,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    loadCards: cards => dispatch(loadCards(cards)),
+
     addCard: card => {
       dispatch(addCard(card))
     },
