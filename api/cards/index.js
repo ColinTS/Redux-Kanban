@@ -28,9 +28,9 @@ cards.route('/')
       });
   })
   .post((req, res) => {
-    Card.create (req.body)
-      .then (res.json.bind(res))
-      .catch (res.json.bind(res));
+    Card.create(req.body)
+      .then(data => res.json(data))
+      .catch(res.json.bind(res));
   });
 
   module.exports = cards;

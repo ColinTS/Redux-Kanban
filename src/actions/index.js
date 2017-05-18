@@ -11,7 +11,6 @@ export const loadCards = () => {
   return dispatch => {
     return db.getAllCards()
       .then(cards => {
-        console.log('cards',cards);
         dispatch({
           type: LOAD_CARDS,
           cards
@@ -23,13 +22,19 @@ export const loadCards = () => {
 };
 
 export const addCard = card => {
-console.log('card',card);
-  return {
-    type: ADD_CARD,
-    card
+  return dispatch => {
+    return db.createCard(card)
+      .then(card => {
+        console.log('card',card);
+        dispatch({
+          type: ADD_CARD,
+          card
+        });
+      })
+      .catch(console.log);
   };
-
 };
+
 
 export const moveForward = card => {
    const cardResult = {

@@ -31,7 +31,6 @@ class App extends Component{
    }
 
   render(){
-    console.log('props', this);
 
     return (
       <div className ="App">
